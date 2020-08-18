@@ -1,0 +1,14 @@
+name: FallCommand
+author: i3rain
+version: 1.0.0
+api: [3.0.0, 4.0.0]
+main: i3rain\FallDamage\Main
+
+permissions:
+  permissions:
+    nofalldamage:
+      description: "Permission um den Fallschaden zu Deaktivieren"
+      default: op
+  nofall.command:
+      description: "Schalte Fallschaden an oder aus"
+      default: op
