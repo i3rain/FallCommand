@@ -11,6 +11,7 @@ use pocketmine\command\Command;
 use pocketmine\command\SimpleCommandMap;
 use pocketmine\Player;
 use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\utils\Config;
 
 class Main extends PluginBase implements Listener {
 
@@ -23,6 +24,8 @@ class Main extends PluginBase implements Listener {
         self::$Main = $this;
         $this->getServer()->getPluginManager()->registerEvents(new DamageEvent(), $this);
         $this->getServer()->getCommandMap()->register("Main", new FallDamage());
+        $config = new Config($this->getDataFolder()."config.yml", Config::YAML);
+        $config->save();
     }
 
     public static function getMain(): self {
