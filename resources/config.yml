@@ -1,0 +1,9 @@
+#messages
+only-In-Game-message: "§c Benutze den Befehl im Spiel."
+noperms-message: "§c Du hast keine Berechtigung"
+usage-message: "§c Benutze: §/nofall <on/off>"
+akiv-message: " Du bekommst kein Fallschaden mehr."
+already-activated-message: " Du hast dies schon Aktiviert."
+deaktiv-message: " Du bekommst wieder Fallschaden."
+already-deactivated-message: " Du hast dies schon Deaktiviert."
+#custom messages by supercrafter333 xD

@@ -11,6 +11,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\plugin\Plugin;
 use pocketmine\Player;
+use pocketmine\utils\Config;
 
 class FallDamage extends PluginCommand{
 
@@ -21,16 +22,18 @@ class FallDamage extends PluginCommand{
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): bool {
+        $config = new Config($this->getPlugin()->getDataFolder()."config.yml", Config::YAML);
+        $config->save();
         if(!$sender instanceof Player){
-            $sender->sendMessage(Main::PREFIX."§c Benutze den Befehl im Spiel.");
+            $sender->sendMessage(Main::PREFIX.$config->get("only-In-Game-message"));
             return false;
         }
         if(!$sender->hasPermission($this->getPermission())){
-            $sender->sendMessage(Main::PREFIX."§c Du hast keine Berechtigung");
+            $sender->sendMessage(Main::PREFIX.$config->get("noperms-messsage"));
             return false;
         }
         if(!isset($args[0])){
-            $sender->sendMessage(Main::PREFIX."§c Benutze: §/nofall <on/off>");
+            $sender->sendMessage(Main::PREFIX.$config->get("usage-message"));
             return false;
         }
 
@@ -38,10 +41,10 @@ class FallDamage extends PluginCommand{
             if(!$sender->hasPermission("nofalldamage")){
             $player = $sender->getName();
                 Main::getMain()->getServer()->dispatchCommand(new ConsoleCommandSender(), "setuperm ".$player." nofalldamage");
-                $sender->sendMessage(Main::PREFIX." Du bekommst kein Fallschaden mehr.");
+                $sender->sendMessage(Main::PREFIX.$config->get("aktiv-message"));
                 return true;
             }else{
-            $sender->sendMessage(Main::PREFIX." Du hast dies schon Aktiviert.");
+            $sender->sendMessage(Main::PREFIX.$config->get("already-activated-message"));
             return true;
             }
         }
@@ -50,14 +53,14 @@ class FallDamage extends PluginCommand{
             if($sender->hasPermission("nofalldamage")){
             $player = $sender->getName();
                 Main::getMain()->getServer()->dispatchCommand(new ConsoleCommandSender(), "unsetuperm ".$player." nofalldamage");
-                $sender->sendMessage(Main::PREFIX." Du bekommst wieder Fallschaden.");
+                $sender->sendMessage(Main::PREFIX.$config->get("deactivated-message"));
                 return true;
             }else{
-            $sender->sendMessage(Main::PREFIX." Du hast dies schon Deaktiviert.");
+            $sender->sendMessage(Main::PREFIX.$config->get("already-deactivated-message"));
             return true;
             }
         }
-        $sender->sendMessage(Main::PREFIX."§c Benutze: §/nofall <on/off>");
+        $sender->sendMessage(Main::PREFIX.$config->get("usage-message"));
         return true;
     }
 }
