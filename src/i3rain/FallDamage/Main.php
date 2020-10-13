@@ -25,7 +25,7 @@ class Main extends PluginBase implements Listener {
         $this->getServer()->getPluginManager()->registerEvents(new DamageEvent(), $this);
         $this->getServer()->getCommandMap()->register("Main", new FallDamage());
         $config = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        $config->save();
+        $this->saveResource("config.yml");
     }
 
     public static function getMain(): self {
